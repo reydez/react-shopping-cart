@@ -1,4 +1,9 @@
-const { CREATE_ORDER, CLEAR_ORDER, CLEAR_CART } = require("../types");
+const {
+  CREATE_ORDER,
+  CLEAR_ORDER,
+  CLEAR_CART,
+  FETCH_ORDERS,
+} = require("../types");
 
 const orderReducer = (state = {}, action) => {
   switch (action.type) {
@@ -7,6 +12,10 @@ const orderReducer = (state = {}, action) => {
     case CLEAR_ORDER:
       return {
         order: null,
+      };
+    case FETCH_ORDERS:
+      return {
+        orders: action.payload,
       };
     /* case CLEAR_CART:
       return {
