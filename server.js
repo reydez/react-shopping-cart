@@ -2,14 +2,20 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const shortid = require("shortid");
-
+/*
+ * mongodb+srv://react-shopping-cart-test:rodrigo321@cluster0.ktu69.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+ */
 const app = express();
-
 app.use(bodyParser.json());
+app.use("/", express.static(__dirname + "/build"));
+app.get("/", (req, res) => res.sendFile(__dirname + "/build/index.html"));
 
-mongoose.connect("mongodb://localhost/react-shopping-cart-db", {
-  useNewUrlParser: true,
-});
+mongoose.connect(
+  process.env.MONGODB_URL || "mongodb://localhost/react-shopping-cart-db",
+  {
+    useNewUrlParser: true,
+  }
+);
 
 const Product = mongoose.model(
   "products",
